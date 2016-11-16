@@ -151,15 +151,19 @@ setMethod("process", "JalgosNN", JalgosNN.process)
 ## A 3 layers network with an input of size 1 and output of size 1
 ## Weights and samples are randomly drawn.
 ## Last call prints the input vs output.
-layer1 = list(nb_neurons = 10, activation_function = tanh)
-layer2 = list(nb_neurons = 5, activation_function = tanh)
-layer3 = list(nb_neurons = 1, activation_function = tanh)
-JNNDef <- list(input_size = 1,
-               layers = list(layer1, layer2, layer3))
-
-JNN = JalgosNN(JNNDef)
-W = rnorm(get_num_synapses(JNN)) * 2
-JNN = set_synaptic_weights(JNN, W)
-input = Matrix(rnorm(1000), 1, 1000)
-output = process(JNN, input)
-print(qplot(as.vector(input), as.vector(output)), title = "input vs output")
+NNExample <- function()
+{
+    layer1 = list(nb_neurons = 10, activation_function = tanh)
+    layer2 = list(nb_neurons = 5, activation_function = tanh)
+    layer3 = list(nb_neurons = 1, activation_function = tanh)
+    JNNDef <- list(input_size = 1,
+                   layers = list(layer1, layer2, layer3))
+    
+    JNN = JalgosNN(JNNDef)
+    W = rnorm(get_num_synapses(JNN)) * 2
+    JNN = set_synaptic_weights(JNN, W)
+    input = Matrix(rnorm(1000), 1, 1000)
+    output = process(JNN, input)
+    print(qplot(as.vector(input), as.vector(output)), title = "input vs output")
+    JNN
+}
